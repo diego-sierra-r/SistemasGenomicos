@@ -30,7 +30,7 @@ Reasons of SNV and CNV research
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	
 Para CNVs
-el rango de patoenicidad va asi:
+el rango de patoenicidad va así:
 
 "In general, evidence
 receiving 0.90 points or higher is considered “very strong;” 0.45 points is considered
@@ -71,6 +71,7 @@ Does loss or gain of this gene o genomic region result in a clinical phenotype?
 		fuera un hotspot donve no hay mucho impacto, si es > a 2.18 el cosntrain es esta en el 10% de los esperado, si es > 4 es mas grave y esta en el 1% de esperados
 		REVEL: predicción para missence variant con score >0.4, ACMG seguiré >0.7 como patógenas, la USCS pone el treshold en =0.773
 		SliceIA: prediction para cambios en el splicing, >0.2 predice impacto en plicing, mientras que <0,1 no hay impactos en el splicing
+		phyloP score: valores <0.1 y negativos se predicen que tienen una tasa evolutiva mas alta de la esperada, >0.1 la tasa evolutiva es menor de la esperada y el sitio esconservado. Tiene un rango de -20 a 30
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
 No se encuentra curado por clingen y el fenotipo no es consistente ir a section 4 
 	- Revisar literatura, un priemr paso es pubmed filtrado por humanos (buscar consistencia del fenotipo  osea mas casos del mismo fenotipo y especificidad osea fenotipos exactos a la manifestacion clinica)
@@ -217,6 +218,7 @@ para SNV ACMG,
 		- Datos poblacionales BA1, BS1, BS2, PM2, PS4:
 			· BA1 es stran alone evidence sí la frecuencia alecia es mayor al >5% en poblaciones continentales (ver "filtering AF" en gnomeAD) y con más de 2000 alelos, igual se pude corroborar.
 			. BA1 puede usar un % diferente a 5% como treshold en poblaciones continentales usando cardiodb si seconoce la penetrancia y la prevalencia, o revisar lista de genes exluidos del BA1
+			. BA1 también Puede usar FAF (Filtering  AF en gnomeAD) como indicador en lugar de una población continental (es mas conservado)
 			. BA1 puede ser mas estricto con CNV intragenico, al tomar una frecuencia >1% en desordenes autonómicos dominantes con alta penetrancia
 			· BS1 si la frecuencia alelica es mayor que la esperada para el desorden, no precisametne el 5% y calculada con cardiodb si no hay datos presidís de penetracia y prevalencia usar los default
 			. BS1_Strong se puede usar con desordenes con alta penetrancia
@@ -233,7 +235,7 @@ para SNV ACMG,
 
 			. BS2 sise se observa u ncaso de individuio sano con la variante, consideran el mecanismo de herencia, (resecivo homosigoto, dominante heterocigoto, o x-linked)
 			no se debe usar si el desorden n oes completametne penetrante o si solo hay conteos peor n os inforamcion del fenotipo
-			· PM2 AF muy baja o absent from contro if dominant (es lo opuesto al BA1, ahora con AF <5% o otro valor si fuè recalculado con cardiodb)
+			
 			· PS4 si la prevalencia de la varaines es significativamente mayor en individuos afectados comparado controles, revisar case-control data 
 			. PS4 requiere estudios de cohortes y casi no hay para enfermedades raras,
 			. PS4 se puede hacer sin estudios de cohortes siempre y cuando si la variante ha sido identificada en 2 o mas individuos no relacionados (moderated) o en solo un individuos no relaciona con un fenotipo especifico y sin reportes en gnomeAD 
@@ -266,7 +268,9 @@ para SNV ACMG,
 			. PM1 no se debe aplicar si el dominio de la proteína no está bien establecido
 			. PM1 No debería usarse para vairante donde se predicen proteínas truncadas o efectos de splicing 
 			. PM1 no se debe usar junto con  PM5 (cambio de aminoacido) o PP2 (misssence como mecanismo de la enfermedad)
-			. PM2 si al variante no parece en gnomeAD en X-linked o en autosomicos, 
+			. PM2 si al variante no parece en gnomeAD en X-linked o en autosomicos,
+			· PM2 AF muy baja o absent from contro if dominant (es lo opuesto al BA1, ahora con AF <5% o otro valor si fuè recalculado con cardiodb) 
+			. PM2 puede tener especificaciones especificas en guías para determinados genes o enfermedades
 			. PM2 no deeberia pliacarse si: toda la demás evidencias mueve la variante a VUS, ensamblajes con poco coverage, complex indels o repeat expacsion- contrarios difíciles de identificar en NGS
 			. PP2 si una variante missense rata a una muy baja tasa de benignidad, indicado que ese cambio esta bajo selección negativa
 			. PP2 si se tiene un Zscore >3.09 se considera significante, ver gnomeAD
