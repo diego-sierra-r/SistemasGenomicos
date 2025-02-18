@@ -1,0 +1,377 @@
+-
+Reasons of SNV and CNV research
+
+	+ Obtener un mejor entendimiento de las enfermedades compartiendo datos genomicos y de salud
+	+ saber si ¿un gen esta asociado a una enfermedad (valiades clinica)? ¿es una variante causativa (patogenicidad)?, ¿util para el diagnostico y tratamiento (utilidad clinica)? 
+	+ la funtes de informacion son, la historia clinica, revision de basses de datos como clinvar, busqueda de investigacion en un fenotipo especifico, otros labs y expertos en 
+	SNV y CNV 
+	+ Paso a paso del proceso
+		- Revisar el fenotipo en la historia clinica y sacar los HPO, Human phenotype ontology
+		- ¿la region genica estudiada esta asosiada al fenotipo?
+		- ¿el fenotipo esta asociado a dosage sensitivity (gain or loss)?
+		- ¿Cuanta inforamcion respalda el dosage sensitivity ?
+		- ¿hay informacion de refute que el dosage sensitivity?
+	+ Con la haploinsuficiencia se busca evidencia de la perdida de funcion LOF, esta se pedue dar por:
+		- single gen deletion
+		- exonic deletion within a gene
+		- NMD
+		- perdida de promotores indispensable
+	+ con la triplosensitividad solo basta con la duplicacion completa de un gen (las dupliaciones intragenicas no cuentan)
+	+ hay multiples maneras de buscar en clingen (HGVS Nomenclatura RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR)
+	+ las razones por las cuales se crearon los rubricas (guidelines para SVN) son:
+		- Determinar si una variante en un gen con un roll en un desorden mendeliano es patogenico para ese desorden
+		- reducir la cantidad de variantes consideradas "causativa" sin suficiente evidecia y pasarlas a VUS
+		- Definir 28 criterios para definir niveles de evidencias para  pathogenic (supporting, oderate, stron, very strong ) y para benign(supporting y strong)
+	+ existen guidelines especificas para grupos de enfermedades relacionadas, como cardiopatias, perdida de escucha, para genes especificos como phenilalanina hidroxilasa, para
+	mitocondrales, incluso apra categorizar mejor el Bening stand alone
+		
+	
+******************************************************************************************************************************************************************************
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	
+Para CNVs
+el rango de patoenicidad va asi:
+
+"In general, evidence
+receiving 0.90 points or higher is considered “very strong;” 0.45 points is considered
+“strong;” 0.30 points is considered “moderate;” and 0.15 points or lower is considered
+“supporting” evidence. Scores for each observed piece of evidence, both in support of
+(positive values) and refuting (negative values) pathogenicity, are summed to arrive at a
+CNV classification. CNVs with a final point value ≥0.99 are considered “pathogenic”, while
+point values between 0.90 and 0.98 are considered “likely pathogenic”
+
+The variant of uncertain significance
+(VUS) category is the broadest, corresponding to points between −0.89 and 0.89, "
+
+
+
+
+1) asegurarse de que la region implicada contenga genes o elementos importantes conocidos si no benigno
+	Buscar en UCSC GENOME BROWSER
+	Buscar el gen afectado en ClinVar
+	¿es dosage sesitive? 2E-2G? si no ...
+	Buscar si es HI en DECIPHER  y luego ver consistencia en genomeAD (pueden haber mas de un gen en la region)
+	si hay uno o màs HI add + 0.15
+	Evaluar el numero de genes en DECIPHER filtrando a lso genes codificantes (3A 0 puntos menos de 25)
+	LUego ver articulos sobre ese gene e clingen dosage sensitivity
+	ver si en los articulos hay datos para 4C de (denovo LOF) multiplicar 0.15*n de parentesco confirmados o 0.10 * n de parentescos asumidos segun el caso
+	Ver datos poplacional en gnomeAD 
+	
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Does loss or gain of this gene o genomic region result in a clinical phenotype?
+
+	HI and TR
+	cuando se busca una region cromomica en clinVar salen lso genes de la region donde:
+		%HI < 10% es sensible a haploinsificencia
+		pLI > 0.9 sensible a Loss of funcion (decipher)
+		LOEUF < 0,35 senciblea loss of funcion (gnomeAD)
+		Z-score: aplica para  synonimus and missense variants, va de -10 a +10 in es una medida de constrain, entre mas grande el numero significa que hay menos copias de 
+		un trasncrito del esperado, por lo tanto esta bajo selecion negativa y hay un impacto, si los valores son negativos es que hay màs variantes de las esperadas como si 
+		fuera un hotspot donve no hay mucho impacto, si es > a 2.18 el cosntrain es esta en el 10% de los esperado, si es > 4 es mas grave y esta en el 1% de esperados
+		REVEL: predicción para missence variant con score >0.4, ACMG seguiré >0.7 como patógenas, la USCS pone el treshold en =0.773
+		SliceIA: prediction para cambios en el splicing, >0.2 predice impacto en plicing, mientras que <0,1 no hay impactos en el splicing
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+No se encuentra curado por clingen y el fenotipo no es consistente ir a section 4 
+	- Revisar literatura, un priemr paso es pubmed filtrado por humanos (buscar consistencia del fenotipo  osea mas casos del mismo fenotipo y especificidad osea fenotipos exactos a la manifestacion clinica)
+	- Resvisar OMIM, si se encuentra y el fenotipo està rodeado de corchetes en OMIM significa que suseptividlidad para multivectorial disroder
+	- ver si hay reportes que asocien la varainte con el fenotivo, asignar pundo de acuerdo a que tan erca esta, considerar edad, pentranciata y si es un fenotipo especifico como
+	gillespie symdrome o uno mas amplio como autism or develomptal delay
+	- ver si hay preficion de LOSS of function con genomeAD usando pLI, si es menor a 0.9 no dar puntos
+	- revisar datos de poblacion, si se esta estudain una enfermdad con la cual se conoce su prevalencia se puede usar cariodb app para conocer el el trashold maximo permitido
+	- si hay dudas de como perfilar el feniotipo ser tan conservativo como se peuda
+	- confirmar si la CVN ha sido conformado o asumido de novo (requiere datos e los padres)
+	- ¿y si el fenotipo no es consistente? es decir, en al literatura a veces la manisfestacion clinica en un paciente es una y en otro paciente otra = puntos a benignidad (negativos)
+	- ¿y si se desconoce el mecanismo de herencia? ste criterio no se peude usar con fenotipos no especificos como autismo, solo si el fenotipo es especifico
+	- ¿se encuentra datos de secregacion? se requiere al menos 3 segregaciones para dar puntos,  nº de segregaciones = nº afectados en familia - 1
+	- ¿ y si no parece haber segragacion? ver si se escuentra en familiares no afectado o si no se encuentra en familiares afectados (ambos dan puntos de benignidad)
+	MUY IMPORTANTE CONOCER EL FENOTIPO Y SU PENETRANCIa, talvez no parece familaires afectados por penetrancia reducida o es a penetracia asociada a edad
+	4I, 4J, Y 4K solo puedan dar 0 puntos o negativos
+	 para caso bajo evaluacion usar categoria 5, para los demas casos usar categoria 4 solo con lo reportado en literatura
+	 - cuando no se tiene clara la informacion de herancia mejor poner 0 puntos al a categoria 5
+	 
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Si se pasa por el siguente proceso: 
+	- la variante contiente protein coding genes -0,6, no se establece un solapamiento con un gen/region HI PERO HAY UN SOLAPAMIENTO CON EL 5' END de un HI establecido pero no del 3'
+	Entonces:
+	
+	- revisar si hay solapamiento mas alla del HI o si los breakoint estan ambos dentro del HI
+	- Determinar si frameshift que lleva a NMD o si hay un inframe (genralmente no da para NMD pero se debe verifiar si afecta un reciduo escencial)
+	- Si la delecion quita parte del 5'start-loss, si se peirde el gen se convierte en un HI, si hay trnscrito con isoformas un nuevo start es posible y no hay tanto daño
+	el dafaul de una un 1 en patogenico peor puede bajar a +0.45 si hay un nuevo ATG de inicio
+	- Si la region codificante se pierde 1 pa patogenico
+	- si solo se pierdela 5'UTR entonces:
+	+0.45 de patogenico y deberian reportese como VUS si no hay mas evidencia
+	- si solo esta la 5' UTR pero hay evidencias de la importanica del promotor entocnes cuenta como HI y pasa a +1 de patogenico (section 2 C2)
+	- luego se mira el numero de genes involucrado (24 almenos para empezar a a dar puntos) (section 3)
+	- si la proband reportada tiene un fenotipo consistente con el gen/region  peorse descooce la herencia + 0.30)
+	- se revisa si hay segregaciones de +0.15 a +0.40
+	...
+	- Si solo se pierde la 3' UTR entonces:
+	- genralmente +0 porque no hay LOF, PERO...
+	- si coge la 3' UTR Y PARTE ADICIONAL puede genrar una proteina trucnada pero sin NMD, ... pera ¿ seràfuncional?
+	- si la la 3'UTR + region adicional toma uan region esscencial del gen de +0,40 a +0,90
+	- si la 3'UTR + region adicional y se hay reportado variates NO PATOGENICAS entocnes no es claro sies escecial o no, dar de +0 a +0.4
+	...
+	- Si le delecion es intragenica entonces: (ver diagrama tayoun et al 2019)
+	- si la delecion es out-frame conduce GENERALMETE a NMD y eso pasa PVS1 +0.9,
+	- si la delecion es inframe, no condice a NMD, ¿pero los exones perdios son escenciales?, si como aca es inframe e importante enonces PCV1_strong +0.45 a 0.9
+	- si lo que hay es un dpliacion es comun que susedan en tandem
+	- si la incesrion crean un outfrane puede generar un NMD
+	- PARA SABBER SI ES INFRAM O NO revisar los tipos de intron/exon, o descargar la secuencia del gen, tomar la parte que ha sido deleted o duplicated y dividirla en 3 y da un
+	numero entero entonces es in inframe, pero si da decimal es out frame
+	- Si hay perdida de exones in-frame o out-frame que no predice para NDM PERO se desconoce si es importante la region perdida proteina entonces:
+		- si la variate del exon es comun en la poblacion N/A
+		- si no es comun en la poblacion y remueve mas de 10% de la proteina PVS1_Strong si es menos del 10% enconces PVS1_moderate
+	- Sie s inframe y se sabre que se genra un proteina trucnada que perdiò una region importante para su funcion aplica pvs1_strong de +0,30 a +0,90
+	- Ahora bien, si en lugar de una delecion hay es una dupliacion entonces:
+		- Si es comprobada tandem, frame disrupted y predicea NMD encoens PVS1, pero no tiene o se desconoce el impacto N/A
+		- si se presume intandem pero sin efecto o se desconoce entonces N/A
+		- si se presume intendem y se presume reading frame disrupted y se predice NMD PVS1_Strong
+	- si hay un N-terminal o C-terminal con dupliacion el inico de la proteina peude ser reconstitui como un rescate peuden ser abundates en la poblacion
+		- peor si hay evidencia de que su patogenicidad +0.45 
+	
+	----------------------------------------------------------------------------------------------------------------------------------------------------------
+	-si no hay HI, hay genes, los pLI y oe estan bien, se va a OMIM y el feno tipo no es completame congruente se va a gnomAD para ver datps de frecuecnias alelica (poblacion):
+	----------------------------------------------------------------------------------------------------------------------------------------------------------
+	DGV
+	Datavase of genomic variants
+	- frecuencia alelica > 0,05 en mas de 2000 alelos observadosver info en gnomeAD, incluso dentro dividos por continente.
+	- revisar con cardiodb y hallar la prevalenca en NORD rarediseasesdb, revisar en OMIM si hay info de la heterogeniedad alelica y la penetrancia para calcular la
+	maxima frecuacnia alelcia permitida para comparar lo lso datos de genomeAD.
+	
+
+
+*******************************************************************************************************************************************************************************
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Para SNV segun DRAFT 
+	+ Las fuentes de evidencias se pueden categorizar asi:
+		- datos de poblacion : si en estudios el fenotipo no es consistente con al penetrancia de la enfermedad (BS2), o si la variante no se encuentra en bases de datos 
+		de poblacion con genomeAD, si hay se hay de lo que se espera para un desorden en particular
+		- Computacional y datos predictivos (la de menos peso): BP4 si la evidencia computacional sugiera que no hay un impacto, PP3 si sesugiera algun impacto, PM5 si hay un
+		misssense donce otros missense patogenicos se han reportado, PS1 cuando hay un cambio en un aminiacido con un variante patogenica ya establecida y PVS1 si se predice LOF 
+		-Datos funcionales: experimoentos invitro o invivo que estudian las carateristicas de una proteina, BS3 si hay estudios especificos que demuestran que no hay un 
+  	 	efecto deletereo, PM1 si se da en un hot spot, PP2 si el missense se da en un gen con baja tasa de variantes missense
+  	 	- Datos de segregacion: BS4 si no ahy segregacion en la enfermedad, PP1 con puntso adicionaels opcionales is se cuenta con mas inforamcion de la familia.
+  	 	- De novo data: se espera que las denovo lo mas probablees que sean patogenicas PM6 si se reporta de novo pero la paternidad y maternidad no ha sido confirmada, 
+		PS2 si es de novo con paternidad y maternidad confirmada
+		- Allelic data: para saber si uan varainte es cis o trans, si se encuentra en transm si se observa en cis junto a una variante patogenica se considera BP2 
+		(la culpa es de la otra, no de la nueva), si se observa trans con una variante patogenica en un desorden resecivo PM3
+		- otras fuentes: base de datos internas BP6 o PP5 segun el caso, es una categegorai que no se promueve, si encuentra un caso con una mejor expliacion para su causa
+		BP5, si hay match con con un fenotipo altamente especifico que es presente en la familia.
+		
+		
+	DRAFT ACMG/AMP/CAP/ClinGen 2023:
+	
+	+ Hay un Draft en curso que se esta realziando con e objetivo de redicir subjetivida, ambiguedades y dar mejor recomendaciones
+	+ las categorias son benign, likely benign, VUS, Likely pathogenic and pathogenic.
+		Benign: -4 a -3
+		likely benign: -3 a -1
+		VUS: 0 a 5
+		likely pathogenic-: 6 - 9
+		Pathogenic: > 9
+	+ En el draft se crea subactegorias para las VUS
+	+ Separa las diferentes fuentes de datos en: evidencia poblacional, evidencia clinica, evidencia del impacto molecular
+	+ Cambios en los codigos actuales
+	+ los prefijos de los codigos nuevos son POP_, CLN_, y IMP_
+	
+	···
+	Paso a paso:
+	
+	+ Determinar si es un LOF, si lo de es patogenico
++ Determianr si es Nonsense
+	+ Sì la variante predice para un trasncrito LOF, entonces:
+		- Sì la variante se presenta a un transcrito relevante para la funcion de transcrito MANE (matche transcription from NCBI an EMBL); puntuacion +7
+		- si el exon esta presente en la mayor de fenotipos afectados pero ausente de otros trascritos; puntiacion +5
+		- si el exon no resulta se clinicamente relevante; +0
+			· si hay mas variantes patogenicas conocidas en el exon se peuden agregar +2 adicionales
+			· si hay un bariante beningan en exon aue predice lelva a NMD se peduen restar -2 por cada variatne benigna
+		END: MAXIMO +10, MINIMO -4
+	+ Si la varainte no conduce a NMD, entonces:
+		- Si el exon esta presente en todo los transcritos; Puntiacion +3
+		- si el exon esta presente en al mayoria pero no en todos; Puntuacion +1
+		- si el exon no es clinicamente relevante, ; puntuacion +03
+			· Si la varainte conduce a  un PTC (Premature Termination Codon) en la relacion P/LP, da +2 por la primera varainte y +1 por cada adicional
+			. si no hay varaitnes inforamtivas en el exon +0 
+			· si la relacion B/LB conduce a PTC  -2 por cada variante benigna
+		- si al region remeve un domino funcional critico 0 50% de la proteina; puntuacion +4
+		- si parcialemtne quita un dominion funcional critico o el 25%e de la proteina; puntiacion +2
+		- si remueve un pedacito del dominio, 0  el 10% de la proteina; puntuacion +1
+		- sise desconocel rol de la proteina +0
+		END: MAXIMO +8 MINIMO -4
++ Determinar si es Frameshift
+	+ Si es framshif aplicar el mismo esquema desition tree de nonsence revisando el flowchart del summerworkshop
++ Determinar si es una sliplice variant
+	- Si NO es un donor GT/AG acceptor, usar in silico splicing flowchart
+	- si si lo es:
+		· Ver flowchart
++ Determinar si es missense varian:
+	Ver flowchar especifico
+
+para SNV ACMG,
+	+ las categorias siguen siendo las mismas que las anteriores
+	
+	+ Respceto a la clasificacion por categorias:
+		- Datos poblacionales BA1, BS1, BS2, PM2, PS4:
+			· BA1 es stran alone evidence sí la frecuencia alecia es mayor al >5% en poblaciones continentales (ver "filtering AF" en gnomeAD) y con más de 2000 alelos, igual se pude corroborar.
+			. BA1 puede usar un % diferente a 5% como treshold en poblaciones continentales usando cardiodb si seconoce la penetrancia y la prevalencia, o revisar lista de genes exluidos del BA1
+			. BA1 puede ser mas estricto con CNV intragenico, al tomar una frecuencia >1% en desordenes autonómicos dominantes con alta penetrancia
+			· BS1 si la frecuencia alelica es mayor que la esperada para el desorden, no precisametne el 5% y calculada con cardiodb si no hay datos presidís de penetracia y prevalencia usar los default
+			. BS1_Strong se puede usar con desordenes con alta penetrancia
+			. BS1 se debe usar con cuidado en varietés con flags de Quality 
+			. BS1_stron puede ser usado con CNVs con frecuencias >0.5% en desordenes dominantes con alta penetrancia
+			. BS1_supporting puede ser usado con CNVs raros
+			. BS2 si se observa en adultos sanos recesivos homocigotos, hdominantes heterocigotos o X-linked en desordenes que se espearuna alta penetrancia a tempranaedad
+			. BS2 requiere tener en cuenta el modo de herencia, edad y penetrancia
+			. BS2 requiere datos, por ejemplo de heterocigostos confirmados como sanos
+			. BS2 y BS1 se pueden usar juntos
+			
+
+
+
+			. BS2 sise se observa u ncaso de individuio sano con la variante, consideran el mecanismo de herencia, (resecivo homosigoto, dominante heterocigoto, o x-linked)
+			no se debe usar si el desorden n oes completametne penetrante o si solo hay conteos peor n os inforamcion del fenotipo
+			· PM2 AF muy baja o absent from contro if dominant (es lo opuesto al BA1, ahora con AF <5% o otro valor si fuè recalculado con cardiodb)
+			· PS4 si la prevalencia de la varaines es significativamente mayor en individuos afectados comparado controles, revisar case-control data 
+			. PS4 requiere estudios de cohortes y casi no hay para enfermedades raras,
+			. PS4 se puede hacer sin estudios de cohortes siempre y cuando si la variante ha sido identificada en 2 o mas individuos no relacionados (moderated) o en solo un individuos no relaciona con un fenotipo especifico y sin reportes en gnomeAD 
+			. si hay case -contro data y hay suficiente literatura que recordó una alta prevalece en paciente, se puede usar PS4 y PM2 al tiempo pero...
+			. no se debe aplicar PS4 y PM2 al tiempo (CON CUIDADO)
+			
+		- Datos computacionales o predictivos BP4, BP1, BP7, BP3, PP3, PM5, PM4, PS1 y PVS1:
+			· BP4 multiples datos computacionales indican benignidad
+			. BP4 aplicando REVEL para missence y SpliceIA para splicing 
+			. BP4 no se debe usar si hay evidencia de física con RNA con BP7
+			· BP1 missence cunado solo las LOF causan la enfermedad, si la enfermedad es causada por aun gain y in LOF lo contraresta
+			. BP1 también puede usarse cuando hay LOF en desordenes generados por GOF y que se haya evidenciado que LOF no es patogénico
+			· BP7 silent variant sin splice impact predico por algoritmos insilico, 
+			. BP7 puede usarse apra variantes intrincas  +7/-21 y variantes no codificantes en UTR con BP4 también aplicable
+			. BP7 se puede usar PhyloP score <0,1 para detectar regiones poco conservadas (tasa evolutiva mas rápido de lo esperada), valores negativos son más graves
+			. BP1 si hay una variante missence cuando la razón establecida para la enfermedad son las variantes truncadas
+			. BP1 si se presenta LOF y la razón de la enfermedad es un GOF y la perdida de la función no genera enfermedades la población, ver gnomeAD
+			. BP1 se pegue usar para missence variants que no afecten splicing, en donde las variantes misssense formen clusters solo en dominios funcionales como BRCA1 y BRCA2
+			. BP3 inframe indels de proteina con fucnion desconocida, se debe revisar la AF
+			. BP3 puede usar predicadores in silicio como MutPredindel y VEST
+			. BP5 si la variante ha sido encontrada en casos donde la explicacion la puede otra variante explicativa, 
+			· PS1 si hay un cambio de aminoácido igual a otra variante patogenica ya reportada
+			. PS1 su el cambio de amibiacido se da por splicing y el cambio de aminoácido predice ser igual o de mayor impacto una variante patogénica ya reportada, pero si la predicción in silicio no predice daños entonces PS1 no aplica
+			. PS1_moderated si alcanza a la categoria de likely pathogenic, tener cuidado de usar esta categoría cuando la razón real es splicing aberrante via PVS1
+			. PS1 si la sustitución del nucleiotido afecta el codon de iniciación y no hay codones de rescate próximos
+			. PS1 no debería usarse con PM4 (inframe indels)
+			. PM1 si la variante se da en un hotspot pathogenic o en un dominio funcional establecido
+			. PM1 se consulta en decipher
+			. PM1 se puede upgradear si el dominio de la proteína está bien establecido
+			. PM1 no se debe aplicar si el dominio de la proteína no está bien establecido
+			. PM1 No debería usarse para vairante donde se predicen proteínas truncadas o efectos de splicing 
+			. PM1 no se debe usar junto con  PM5 (cambio de aminoacido) o PP2 (misssence como mecanismo de la enfermedad)
+			. PM2 si al variante no parece en gnomeAD en X-linked o en autosomicos, 
+			. PM2 no deeberia pliacarse si: toda la demás evidencias mueve la variante a VUS, ensamblajes con poco coverage, complex indels o repeat expacsion- contrarios difíciles de identificar en NGS
+			. PP2 si una variante missense rata a una muy baja tasa de benignidad, indicado que ese cambio esta bajo selección negativa
+			. PP2 si se tiene un Zscore >3.09 se considera significante, ver gnomeAD
+			. PP2 no debería usarse si hay evidencia de que la región n o está bajo una fuerte selección negativa
+			. PP2 no se debería usar para dar patogenicidad si hay una alta frecuencia alelica en genomeAD 
+			. PP2 no se debería usar al tiempo con PP2 con la misma evidencia
+			. PP3 los datos computacionales predícete efectos deletereos (conservación, splicing, etc)
+			. PP3 el impacto misssense variante se hace con REVEL
+			. PP3 REVEL no es bueno para predecir a genes como  PKD1, DSG2 y genes GOF, una alternativa es AlphaMisssense 
+			. PP3 no debería usarse con PVS1 si hay datos de mRNA análisis que demuestran la producción de transcritos anormales
+			. PP3 una variable no debería clasificarse como patogénica solo con predicciones insilico, por eso no usar PP3_strong
+			. 
+			· PM5 si hay un cambio de aminoacido diferente al ya reportado, revisar REVEL o BLOSUM62
+			· PM5 si hay un cambio missense  diferentea lya reportado
+			· PM5 strong si hay 2 o mas misssense que han sido reportados como patogenicas ya
+			. PM5 no se debe usar con PM1 (Hotspot)
+			· PM4 si hay un cambio en el tamaño de la proteina (daños inframe)
+			. PM4 se usa variantes que dañan el ultimo exon causando gain of función
+			. PM4 no debe usarse junto a PVS1
+			· PVS1 si se predice un LOF de una proteina que tiene un roll o conocido para la enfermedad
+			. PVS1 si hay un stop loss que elimina el exon de termination generando Un NMD o NSD
+			. PVS1 puede ser downgraded si LOF no tiene un Roll en la enfermedad establecido o si solo se cuenta con un moderado nivel de evidencia
+			. PVS1 si spliceAI es > a 0.2 y hay evidencia via RNA y > 0.8 sin evidence de RNA
+			. PVS1 debe usarse si la delaciones grandes (exon scale) y con duplicaciones incluyendo single exon
+			. PVS1 no debería usarse par non-canonical splicing si no hay estudios de RNA
+			. PVs1 no deveria usarse si la variante no va a NMD
+			. PVS1 no debería usarse junto a PS3 (evidencia de estudios funcionales)
+			. PVS1 no debería usarse si el mecanismo de la enfermedad es un gin of función GOF
+			. PVS1 no debería usarse con PM1 (Hotspot), PM4 (inframe indels), PP2 (missense ver Z score) y PP3 (predicción de misssence con REVEL)
+
+
+
+		- De novo data PM6, PS2:
+			. PM6 si se asume de novo, pero no se ha confirmado paternidad y maternidad, puede pasa a PM6_strong si hay mas de 2 ocurrencias de Novo
+			. PS2 si se confirma de y con  con maternidad y maternidad comprobada, pero solo placía si es un fenotipo especifico, puede pasar a PS2_very_stron si hay mande 2 ocurrencias de Novo
+			. PM6/PS2 aplica como eventos de Novo para mosaicismo ya sea si el reporte aparece en el paciente o en sus padres
+			. PM6/PS2 aplica preferente sobre PP4 (el fenotipo del paciente o su historia familiar es altamente especifico con la enfermedad), sin dar puntos adicionales
+		- Datos alelicos BP2, PM3:
+			. BP2: si es observada en trans de una variante dominante, o si es observada en cis de una variante benigna (requiere datos de los padres o dependencia para verificar), se debe usar en variante completamente penetrantes con un fenotipo claramente identificado
+			. BP2 debe considerar la edad  y la penetrancia
+			. PM3: para desordenes recesivos con una variante patogénica en trans.
+			 tanto BP2 como PM3 pueden se upgraded o downgraded si hay mas reportes de probands 
+			. PM3 Se recomienda en casos bialelicos raros en lugar de PS4 (case - control studies)
+			. PM3 puede dar mas o menos puntos si se compresa homocigosis con datos con los parentales
+			. PM3 no se debería usar si 2 variantes co-ocurren, a menos que se haya confirmado en trans
+			. PM3  debe priorizarse frente PS4 en autonómicas reservas, y donde PM2 no aplica.
+			.
+
+		- Datos funcionales PS3
+			. PS3 si hay evidencia de es estado invitro o invivo que indiquen daños en el gen o proteína producida 
+			. PS3 si puede usarse junto PP3
+			. BS3 si hay estudios bien establecidos invito o invito que demuestranque no hay daños en la proteína, para proteínas asssys only
+			.BS3 no se debe usar con predicciones insilico, como predicciones de splicing
+
+		- Dato de otras fuentes BP6, PP5
+			. No deberían ser utilizadas por double counting con otros criterios 
+			. PP5 si hay fuentes confiables de su patogenicidad pero no hay una evidencia de un Lab con evaluación independientes
+			. BP6 si hay fuentes confiables de su benignidad pero no hay una evidencia de un Lab con evaluación independientes
+		- Datos de segregación 
+			. PP1 si hay datos de cosegregación en múltiples miembros de la familia afectados y con un gen conocido asociado a la enfermedad.
+			. la evidencia aumenta si hay múltiples reportes de de diferentes familias, 
+			. PP4 si el fenotipo del paciente o la historia familiar es altamente especifica
+			. PP4 aplica si el paciente tiene una enfermedad rara con un fenotipo muy característico
+			. PP4 nunca se debe usar para fenotipos como autismo, epilepsia, retraso en el desarrollo y otros fenotipos amplios
+			. PP4 se puede usar cuando se ha testado la mayoría de causa genéticas que causan la enfermedad
+			. PP4 se ha fundido con PS4 en las guías del VCEP (pero eso implica estudios de cohortes)
+			. BS4 si no hay segregacion con la enfermedad (ver Browing 2016)
+
+
+
+
+
+
+
+
+
+
+
+*******************************************************************************************************************************************************************************
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+Paso a paso Synlab
+
+
+1, poner encabezado de acuerdo al código de la muestra/paciente
+2, llenar datos del analista
+3, llenar datos del paciente, nombre, cédula,  fecha, diagnostico, solicitud (cancer hereditario panel 160 genes NGS con CNVs)
+4, describir el fenotipo del paciente basado en la historia clínica
+5, definir si hay antecedentes familiares, o si si confirma consanguinidad
+6, psar a revisio técnica en la plataforma de sistemas genómicos, poner pantallazo de la cobertura , de los genes  
+7, descarga listados de las deletreas y VAEs en la plataforma, 
+8, a las sospechas ver la profundidad ,ver si haya poliT, si hay framsghit ver si hay reas que l respalden 
+9, Ver en OMIM la asociación de la variante según HGVS DE TODO PONER PANTALLAZOS
+10, ver el clin gen si es haploinsuficiente 
+11, Ver si hay guias especificas para el gen en cuestión , en criteria specification registry
+12, ver en descifre los LOF, si hay muchos poner filtro
+13, ver si escapa en NMD, (si la zona gris esta mas grande que el tamaño del gen), estudios funcionales, estudios de case control
+14 ver si la AF es muy baja en la poblaciónl pero se debe verificar si real 
+15, pantallazo de la guia y pantallazo de la evidencia de cada uno de los criterio aplicados y se hace una justificación 
+16, cerrar con la suma de los criterios (ej PVS1 + PM5 = Patogénico)
+17, luego pasar a CNVs, se descarga el archivo así no tenga nada
+18, poner conclusión: ej: "se reporta variable patogénica NOM HGVS"
+19, revisar el variantValidator al poner el el GEN y el NM en la plantilla del reporte
+20, el en nombre de la enfermedad poner lo que arroja OMIM
+
+
+
